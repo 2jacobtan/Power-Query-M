@@ -29,7 +29,7 @@ in
 
 // MasterSheet
 let
-    Source = Excel.Workbook(File.Contents("O:\Docs\00.Business Planning\Export Genius\Data\06 Data Cleaning\" & "masterlist USA" & ".xlsx"), null, true),
+    Source = Excel.Workbook(File.Contents("O:\06 Data Cleaning\" & "masterlist" & ".xlsx"), null, true),
     Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
     #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
     #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Importer Company", type text}, {"Standard Manufacturing CO", type text}, {"Type", type text}, {"Remarks", type text}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type any}, {"Column9", type any}, {"IND", type text}}),
@@ -41,7 +41,7 @@ in
 
 // Raw data files
 let
-    Source = Folder.Files("O:\Docs\00.Business Planning\Export Genius\Data\05 Newly received data"),
+    Source = Folder.Files("O:\05 Newly received data"),
     #"Filtered Hidden Files1" = Table.SelectRows(Source, each [Attributes]?[Hidden]? <> true),
     #"Filtered Rows" = Table.SelectRows(#"Filtered Hidden Files1", each Text.StartsWith([Extension], ".xls")),
     #"Invoked Custom Function" = Table.AddColumn(#"Filtered Rows", "workbookSheet1(binary)", each #"workbookSheet1(binary)"([Content])),
@@ -50,62 +50,62 @@ let
 in
     #"Renamed Columns"
 
-// India
+// America
 let
     Source = #"Raw data files",
-    #"CountryFilterExpand" = CountryFilterExpand(Source,"India"),
+    #"CountryFilterExpand" = CountryFilterExpand(Source,"America"),
     #"Invoked Custom Function" = Table.AddColumn(CountryFilterExpand, "Importer_", each #"StripPunctuation(text)"([FOREIGN IMPORTER NAME]))
 in
     #"Invoked Custom Function"
 
-// Indonesia
+// Britain
 let
     Source = #"Raw data files",
-    #"CountryFilterExpand" = CountryFilterExpand(Source,"Indonesia"),
+    #"CountryFilterExpand" = CountryFilterExpand(Source,"Britain"),
     #"Invoked Custom Function" = Table.AddColumn(CountryFilterExpand, "Importer_", each #"StripPunctuation(text)"([Importer]))
 in
     #"Invoked Custom Function"
 
-// Pakistan
+// Canada
 let
     Source = #"Raw data files",
-    #"CountryFilterExpand" = CountryFilterExpand(Source,"Pakistan"),
+    #"CountryFilterExpand" = CountryFilterExpand(Source,"Canada"),
     #"Invoked Custom Function" = Table.AddColumn(CountryFilterExpand, "Importer_", each #"StripPunctuation(text)"([IMPORTER NAME]))
 in
     #"Invoked Custom Function"
 
-// Vietnam
+// Denmark
 let
     Source = #"Raw data files",
-    #"CountryFilterExpand" = CountryFilterExpand(Source,"Vietnam"),
+    #"CountryFilterExpand" = CountryFilterExpand(Source,"Denmark"),
     #"Invoked Custom Function" = Table.AddColumn(CountryFilterExpand, "Importer_", each #"StripPunctuation(text)"([Importer]))
 in
     #"Invoked Custom Function"
 
-// India_merge
+// America_merge
 let
-    Source = Table.NestedJoin(India,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
+    Source = Table.NestedJoin(America,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
     #"Expanded MasterSheet" = Table.ExpandTableColumn(Source, "MasterSheet", {"Standard Manufacturing CO", "Type", "Remarks"}, {"master.Standard Manufacturing CO", "master.Type", "master.Remarks"})
 in
     #"Expanded MasterSheet"
 
-// Indonesia_merge
+// Britain_merge
 let
-    Source = Table.NestedJoin(Indonesia,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
+    Source = Table.NestedJoin(Britain,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
     #"Expanded MasterSheet" = Table.ExpandTableColumn(Source, "MasterSheet", {"Standard Manufacturing CO", "Type", "Remarks"}, {"master.Standard Manufacturing CO", "master.Type", "master.Remarks"})
 in
     #"Expanded MasterSheet"
 
-// Pakistan_merge
+// Canada_merge
 let
-    Source = Table.NestedJoin(Pakistan,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
+    Source = Table.NestedJoin(Canada,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
     #"Expanded MasterSheet" = Table.ExpandTableColumn(Source, "MasterSheet", {"Standard Manufacturing CO", "Type", "Remarks"}, {"master.Standard Manufacturing CO", "master.Type", "master.Remarks"})
 in
     #"Expanded MasterSheet"
 
-// Vietnam_merge
+// Denmark_merge
 let
-    Source = Table.NestedJoin(Vietnam,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
+    Source = Table.NestedJoin(Denmark,{"Importer_"},MasterSheet,{"Importer_"},"MasterSheet",JoinKind.LeftOuter),
     #"Expanded MasterSheet" = Table.ExpandTableColumn(Source, "MasterSheet", {"Standard Manufacturing CO", "Type", "Remarks"}, {"master.Standard Manufacturing CO", "master.Type", "master.Remarks"})
 in
     #"Expanded MasterSheet"
