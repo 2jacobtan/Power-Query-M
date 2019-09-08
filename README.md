@@ -13,4 +13,4 @@ Extract, Transform, Load (ETL) using Power Query
 
 • Find and output duplicates in master table, for user's attention
 
-• Create clean user interface and config worksheet, for ease of use by non-technical colleagues (see .png files)
+• Create clean user interface and config worksheet, for ease of use by non-technical colleagues ([ETL - both pages.png](ETL - both pages.png))
