@@ -15,4 +15,4 @@ Extract, Transform, Load (ETL) using Power Query
 
 • Create clean user interface and config worksheet, for ease of use by non-technical colleagues
 
-[ETL - both pages.png](ETL - both pages.png)
+Screenshots: [ETL - both pages.png](ETL%20-%20both%20pages.png)
