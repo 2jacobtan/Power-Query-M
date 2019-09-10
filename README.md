@@ -7,7 +7,7 @@ Extract, Transform, Load (ETL) using Power Query
 
 • Detect category by file name
 
-• Strip punctuation from relevant column, and truncate for better matching
+• Strip punctuation from relevant column, truncate, and capitalise for better matching
 
 • Match against master table
 
