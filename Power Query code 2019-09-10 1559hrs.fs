@@ -17,9 +17,10 @@ let
             PunctuationString = "!""#(#)$%&''()*+, -./:;<=>?@[\]^_`{|}~",
             PunctuationList = Text.ToList(PunctuationString),
             Output = Text.Remove(xString,PunctuationList),
-            Output2 = Text.Start(Output,40)
+            Output2 = Text.Start(Output,40),
+            Output3 = Text.Upper(Output2)
         in
-            Output2 as text
+            Output3 as text
 in StripPunctuation
 
 // CountryFilterExpand
